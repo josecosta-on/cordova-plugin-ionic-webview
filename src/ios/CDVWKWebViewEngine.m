@@ -479,6 +479,19 @@
         }
     }
 
+    NSLog(@"::::WEBVIEW::::");
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160400
+
+    if (@available(iOS 16.4, *)) {
+#ifdef DEBUG
+        BOOL allowWebviewInspectionDefault = YES;
+#else
+        BOOL allowWebviewInspectionDefault = NO;
+#endif
+        wkWebView.inspectable = [settings cordovaBoolSettingForKey:@"InspectableWebview" defaultValue:allowWebviewInspectionDefault];
+    }
+#endif
+ 
     wkWebView.configuration.preferences.minimumFontSize = [settings cordovaFloatSettingForKey:@"MinimumFontSize" defaultValue:0.0];
     wkWebView.allowsLinkPreview = [settings cordovaBoolSettingForKey:@"AllowLinkPreview" defaultValue:NO];
     wkWebView.scrollView.scrollEnabled = [settings cordovaBoolSettingForKey:@"ScrollEnabled" defaultValue:NO];
